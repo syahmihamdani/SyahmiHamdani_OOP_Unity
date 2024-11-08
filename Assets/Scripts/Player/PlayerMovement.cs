@@ -33,10 +33,17 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+<<<<<<< HEAD
         min.x += 0.225f;
         max.x -= 0.225f;
         min.y += 0.225f;
         max.y -= 0.225f;
+=======
+        min.x += 0.6f;
+        max.x -= 0.5f;
+        min.y += 0.1f;
+        max.y -= 0.7f;
+>>>>>>> 2ff8d36 (CS8 - Commit pertama)
 
         float friction = GetFriction().x;
 
