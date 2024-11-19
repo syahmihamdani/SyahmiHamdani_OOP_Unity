@@ -21,7 +21,9 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(GameObject.Find("Camera"));
         DontDestroyOnLoad(GameObject.Find("Player"));
-        DontDestroyOnLoad(GameObject.Find("Weapon1"));
+
+
+
 
 
     }

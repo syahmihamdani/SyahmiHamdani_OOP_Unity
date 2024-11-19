@@ -1,76 +1,74 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
-public class EnemyBoss : Enemy
+public class EnemyBoss : MonoBehaviour
 {
-    [Header("Enemy Boss Stats")]
-    [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float shootIntervalInSeconds = 2f;
-    [SerializeField] private Transform bulletSpawnPoint;
-    [SerializeField] private Bullet bulletPrefab;
+  [Header("Weapon Stats")]
+  [SerializeField] private float shootIntervalInSeconds;
 
-    private float shootTimer;
+  [Header("Bullets")]
+  public Bullet bullet;
+  [SerializeField] private Transform bulletSpawnPoint;
 
-    private Transform player; // Reference to the player's transform
-    private bool isMovingLeft = true; // Direction flag for horizontal movement
+  [Header("Bullet Pool")]
+  private IObjectPool<Bullet> objectPool;
 
-    private void Start()
+  private readonly bool collectionCheck = true;
+  private readonly int defaultCapacity = 30;
+  private readonly int maxSize = 100;
+  private float timer;
+  public Transform parentTransform;
+
+  private void Awake()
+  {
+    objectPool = new ObjectPool<Bullet>(CreateBullet, OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject, collectionCheck, defaultCapacity, maxSize);
+  }
+
+  private Bullet CreateBullet()
+  {
+    Bullet bulletInstance = Instantiate(bullet);
+    bulletInstance.ObjectPool = objectPool;
+    return bulletInstance;
+  }
+
+  private void OnGetFromPool(Bullet bullet)
+  {
+    bullet.gameObject.SetActive(true);
+  }
+
+  private void OnReleaseToPool(Bullet bullet)
+  {
+    bullet.gameObject.SetActive(false);
+  }
+
+  private void OnDestroyPooledObject(Bullet bullet)
+  {
+    Destroy(bullet.gameObject);
+  }
+
+  private void FixedUpdate()
+  {
+    if ( Time.time > timer && objectPool != null)
     {
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        if (player == null)
-        {
-            Debug.LogError("Player not found! Ensure the player is tagged correctly.");
-            return;
-        }
+      bullet = objectPool.Get();
 
-        // Initial spawn position, can be set to spawn on either left or right of the screen
-        float screenHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
-        transform.position = new Vector2(Random.Range(-screenHalfWidth, screenHalfWidth), Camera.main.orthographicSize + 1f);
+      if (bullet == null)
+      {
+        return;
+      }
+
+      bullet.transform.SetPositionAndRotation(bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+
+      bullet.InitializeBullet(Vector2.down);
+
+
+      //bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.up * bullet.speed, ForceMode.Acceleration);
+
+      bullet.Deactivate();
+
+      timer = Time.time + shootIntervalInSeconds;
     }
-
-    private void Update()
-    {
-        if (player == null) return;
-
-        // Horizontal movement from left to right or right to left
-        MoveHorizontally();
-
-        // Shoot bullets at regular intervals
-        ShootBullet();
-    }
-
-    private void MoveHorizontally()
-    {
-        // Move the enemy boss left or right depending on the flag
-        float direction = isMovingLeft ? -1 : 1;
-        transform.Translate(Vector2.right * direction * moveSpeed * Time.deltaTime);
-
-        // Check if the enemy has crossed the screen, and reverse direction
-        if (transform.position.x <= -Camera.main.aspect * Camera.main.orthographicSize || 
-            transform.position.x >= Camera.main.aspect * Camera.main.orthographicSize)
-        {
-            isMovingLeft = !isMovingLeft; // Reverse direction
-        }
-    }
-
-    private void ShootBullet()
-    {
-        // Timer for shooting bullets at intervals
-        if (Time.time >= shootTimer)
-        {
-            shootTimer = Time.time + shootIntervalInSeconds;
-
-            // Instantiate and shoot a bullet
-            Bullet newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-            newBullet.InitializeBullet(Vector2.down); // Shoot downwards (or towards player, if needed)
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            // If the boss collides with the player, destroy the boss
-            Destroy(gameObject);
-        }
-    }
+  }
 }

@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour
 
     public void InitializeBullet(Vector2 dir)
     {
-        direction = dir;
+        direction = dir.normalized;
     }
 
     void Start()
