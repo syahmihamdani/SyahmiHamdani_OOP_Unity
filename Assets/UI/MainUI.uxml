@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Text.uss?fileID=7433441132597879392&amp;guid=39493dc104a43f641aea9330cf8485e3&amp;type=3#Text" />
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:Label tabindex="-1" text="Health: &#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="HealthText" class="text" style="width: 199px; height: 21px; margin-left: 100px; top: 20px;" />
+        <ui:Label tabindex="-1" text="Points" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PointsText" class="text" style="width: 50px; margin-left: 100px; top: 25px;" />
+        <ui:Label tabindex="-1" text="Wave: " parse-escape-sequences="true" display-tooltip-when-elided="true" name="WaveText" class="text" style="-unity-text-align: upper-right; width: 434px; position: absolute; top: 20px; left: 695px; height: 17px;" />
+        <ui:Label tabindex="-1" text="Enemies Left:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EnemiesLeftText" class="text" style="-unity-text-align: upper-right; width: 434px; position: absolute; top: 50px; left: 695px; height: 29px;" />
+    </ui:VisualElement>
+</ui:UXML>

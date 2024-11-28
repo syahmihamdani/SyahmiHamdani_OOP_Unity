@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; width: 1280px; height: 1080px;">
+        <ui:VisualElement name="Container" style="flex-grow: 1; width: 1174px; justify-content: center; align-items: auto; height: 1080px;">
+            <ui:Label tabindex="-1" text="SpaceShooter&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" style="width: 340px; -unity-text-align: upper-center; white-space: normal; padding-top: 15px; margin-top: 10px; margin-left: 100px; transform-origin: center; margin-right: 100px; padding-bottom: 15px; position: absolute; top: 22px; left: 409px; color: rgb(255, 255, 255); height: 33px; font-size: 45px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,6 @@
+.text {
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-left;
+    align-items: auto;
+    -unity-font-style: normal;
+}
