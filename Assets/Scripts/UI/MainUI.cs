@@ -28,5 +28,22 @@ public class MainUI : MonoBehaviour
         pointsText.text = $"Points: {playerPoints}";
         waveText.text = $"Wave: {currentWave}";
         enemiesLeftText.text = $"Enemies Left: {enemiesLeft}";
+
+        //SimulateGameLogic();
     }
+
+    //     private void SimulateGameLogic()
+    // {
+    //     if (Time.frameCount % 60 == 0) 
+    //     {
+    //         playerHealth = Mathf.Max(0, playerHealth - 1); 
+    //         playerPoints += 10; 
+    //         enemiesLeft = Mathf.Max(0, enemiesLeft - 1);
+    //         if (enemiesLeft == 0) 
+    //         {
+    //             currentWave++;
+    //             enemiesLeft = 10 + currentWave * 5;
+    //         }
+    //     }
+    // }
 }

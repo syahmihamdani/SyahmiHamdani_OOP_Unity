@@ -8,7 +8,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private float waveInterval = 5f; 
     public int waveNumber = 1;         
     public int totalEnemies = 0;         
-    private int enemiesSpawnedThisWave = 0;
+    //private int enemiesSpawnedThisWave = 0;
     void Start()
     {
         StartCoroutine(WaveSystem());
